@@ -3,8 +3,7 @@ import { createContext, useState } from "react";
 const AppContext = createContext(null)
 
 const ContextProvider = ({children}) => {
-  const [products, setProducts] = useState([])
-  
+  const [products, setProducts] = useState([])  
   const initialValue = {
     setProducts
   }
