@@ -1,7 +1,8 @@
 import { useRoutes, Navigate } from "react-router-dom"
+import ProductsHome from "./pages/ProductsHome"
 import Product from "./components/Product"
-import ProductList from "./components/ProductList"
 import App from './pages/App'
+import ProductsSearch from "./pages/ProductsSearch"
 const Paths = () => {
   const element = useRoutes ([
     {
@@ -13,12 +14,16 @@ const Paths = () => {
       element: <App/>,
       children: [
         {
-          element: <ProductList/>,
+          element: <ProductsHome/>,
           index: true
         },
         {
           path: 'product/:id',
           element: <Product/>
+        },
+        {
+          path: 'search',
+          element: <ProductsSearch/>
         }
       ]
     }

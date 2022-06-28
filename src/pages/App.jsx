@@ -1,7 +1,7 @@
 import Header from "../components/Header"
 import { Outlet } from 'react-router-dom'
 import { Suspense } from 'react'
-import { ContextProvider } from "../context/ProductContext"
+import { ContextProvider } from "../context/AppContext"
 
 function App() {
   return (
