@@ -3,6 +3,8 @@ import ProductsHome from "./pages/ProductsHome"
 import Product from "./components/Product"
 import App from './pages/App'
 import ProductsSearch from "./pages/ProductsSearch"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
 const Paths = () => {
   const element = useRoutes ([
     {
@@ -24,6 +26,14 @@ const Paths = () => {
         {
           path: 'search',
           element: <ProductsSearch/>
+        },
+        {
+          path: 'login',
+          element: <Login />
+        },
+        {
+          path: 'register',
+          element: <Register />
         }
       ]
     }

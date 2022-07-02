@@ -8,7 +8,11 @@ function App() {
     <ContextProvider>
       <Header/>
       <div className="App">
-        <Suspense fallback={<p>...loading suspense</p>}>
+        <Suspense fallback={
+          <div className='loadingSpinnerContainer'>
+            <div className="loadingSpinner"></div>
+          </div>
+          }>
           <Outlet/>
         </Suspense>
       </div>
