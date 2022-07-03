@@ -21,13 +21,18 @@ const setSession = (token) => {
 
 // obtener datos del usuario
 const getUsuario = async (token) => {
-  const userId = jwtDecode(token).id
-  const res = await axios.get(`https://ecomerce-master.herokuapp.com/api/v1/user/${userId}`, {
-  headers: {
-    'Authorization': 'JWT ' + token
-  }
-  });
+  if(isValidToken(token)){
+    const userId = jwtDecode(token).id
+    const res = await axios.get(`https://ecomerce-master.herokuapp.com/api/v1/user/${userId}`, {
+      headers: {
+        'Authorization': 'JWT ' + token
+      }
+    });
   return res
+  } else {
+    return null
+  }
+  
 }
 
 export {isValidToken, setSession, getUsuario}

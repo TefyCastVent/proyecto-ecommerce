@@ -1,11 +1,8 @@
-import { useState, useContext, createContext } from 'react'
+import { useState, useContext, createContext, useEffect } from 'react'
 import axios from 'axios'
-import { useEffect } from 'react'
 import { isValidToken, setSession, getUsuario} from '../utils/jwt'
-import jwtDecode from "jwt-decode"
 
 const AuthContext = createContext(null)
-
 const AuthProvider = ({children}) => {
   const [authed, setAuthed] = useState(() => {
     const token = window.localStorage.token || ''
@@ -15,7 +12,7 @@ const AuthProvider = ({children}) => {
   const [globalUser, setGlobalUser] = useState(() => {
     const token = window.localStorage.token || ''
     if (isValidToken(token)){
-      return jwtDecode(token)
+      return getUsuario(token).then(result => setGlobalUser(result.data))
     }
     else{
       return null
@@ -58,15 +55,23 @@ const AuthProvider = ({children}) => {
   const logOut = () => {
     setSession(null)
     setAuthed(false)
+    setGlobalUser(null)
   }
 
   console.log(authed,' authed')
+
+  const register = async (userdata) => {
+    const response = await axios.post('https://ecomerce-master.herokuapp.com/api/v1/signup',userdata)
+    const res = response.data
+    return res
+  }
 
   const initialValues ={  
     loginAuth,
     authed,
     logOut,
-    globalUser
+    globalUser,
+    register
   }
 
   return (

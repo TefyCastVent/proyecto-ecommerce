@@ -6,7 +6,7 @@ import { useRef } from 'react'
 import useAppContext from '../hooks/useAppContext'
 import { useAuthContext } from '../context/AuthContext'
 import {FaSignInAlt, FaUserCircle , FaUser} from 'react-icons/fa'
-
+import axios from 'axios'
 const Header = () => {
   const{ handleFilterProducts } = useAppContext()
   const navigate = useNavigate()
@@ -22,6 +22,24 @@ const Header = () => {
     }
     event.target.reset()
   }
+  const onLogOut = () => {
+    logOut()
+    navigate('/products/login')
+  }
+
+  const register = async () => {
+    const response = await axios.post('https://ecomerce-master.herokuapp.com/api/v1/signup',{
+      first_name: "Juliana",
+      last_name: "Cartagena",
+      birth_date: "1989-10-21",
+      gender: "M",
+      email: "cablevision",
+      password: "orperjuo9000"
+  })
+    const res = response.data
+    return res
+  }
+  register()
  
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
@@ -38,8 +56,8 @@ const Header = () => {
           <input  ref={searchRef} className="form-control me-2  " type="search" placeholder="Search" aria-label="Search" />
           <button className="btn btn-dark btn-outline-light" type="submit">🔍</button>
         </form>
-        {authed ? (<>
-          <button className='btn btn-light m-1' onClick={logOut} >LogOut</button>
+        {globalUser ? (<>
+          <button className='btn btn-light m-1' onClick={onLogOut} >LogOut</button>
           <div>
           <h5 className='navbar-brand'>{globalUser.first_name + ' '+globalUser.last_name}</h5>
           </div>
